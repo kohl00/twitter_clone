@@ -29,4 +29,10 @@ end
  	 assert_select "title", "About | #{@base_title}"
  end
 
+ test "should get about " do 
+ 	get :contact
+ 	assert_response :success
+ 	 assert_select "title", "Contact | #{@base_title}"
+ end
+
 end
