@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class StaticPagesControllerTest < ActionController::TestCase
+<<<<<<< HEAD
 
 def setup
 		@base_title= "Ruby on Rails Tutorial Sample App"
@@ -11,6 +12,11 @@ end
   	assert_response :success
   end
 
+=======
+	def setup
+  @base_title = "Ruby on Rails Tutorial Sample App"
+ end
+>>>>>>> filling-in-layout
   test "should get home" do
     get :home
     assert_response :success
@@ -29,7 +35,11 @@ end
  	 assert_select "title", "About | #{@base_title}"
  end
 
+<<<<<<< HEAD
  test "should get about " do 
+=======
+test "should get contact " do 
+>>>>>>> filling-in-layout
  	get :contact
  	assert_response :success
  	 assert_select "title", "Contact | #{@base_title}"

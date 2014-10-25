@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   get 'static_pages/home'
   get 'static_pages/about'
   get 'static_pages/help'
   get 'static_pages/contact'
   root 'static_pages#home'
 
+=======
+  get 'users/new' => 'users#new', as: :signup
+
+  get 'static_pages/home', as: :home
+  get 'static_pages/about', as: :about
+  get 'static_pages/help', as: :help
+  get 'static_pages/contact', as: :contact
+  root 'static_pages#home'
+>>>>>>> filling-in-layout
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
