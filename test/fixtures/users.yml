@@ -1,1 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+kohl:
+  name: Kohl Fixtures
+  email: kohl@fixtures.com
+  password_digest: <%= User.digest("password") %>
+# user = users(:kohl)
