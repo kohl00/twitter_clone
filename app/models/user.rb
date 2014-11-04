@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
 			   format: { with: VALID_EMAIL_REGEX },
 			   uniqueness: {case_sensitive: false}
  	has_secure_password
- 	validates :password, length: {minimum: 6}
+ 	validates :password, length: {minimum: 6}, allow_blank: true
 
  	def User.digest(string) #originally used for testing in fixtures.Also used in cookie token
  		cost= ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost 
