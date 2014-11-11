@@ -5,4 +5,9 @@
     | <%= link_to "delete", user, method: :delete,
                                   data: { confirm: "You sure?" } %>
   <% end %>
+  <% if current_user.admin? %>  
+  	<% if !user.admin? %>  
+      <%= button_to "Make Admin",{ action: 'make_admin', id: user.id}, method: :put %>
+    <% end %>
+  <% end %>
 </li>
