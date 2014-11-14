@@ -9,6 +9,35 @@ class UserTest < ActiveSupport::TestCase
   					 password: "foobar", password_confirmation: "foobar")
   end
 
+  test "feed should have the right posts" do
+    kohl= users(:kohl)
+    archer= users(:archer)
+    lana= users(:lana)
+    # Posts from followed user
+    lana.microposts.each do |post_following|
+      assert kohl.feed.include?(post_following)
+    end
+    # Posts from self
+    kohl.microposts.each do |post_self|
+      assert kohl.feed.include?(post_self)
+    end
+    # Posts from unfollowed user
+    archer.microposts.each do |post_unfollowed|
+      assert_not kohl.feed.include?(post_unfollowed)
+    end
+  end
+
+  test "should follow and unfollow a user" do
+    kohl = users(:kohl)
+    archer  = users(:archer)
+    assert_not kohl.following?(archer)
+    kohl.follow(archer)
+    assert kohl.following?(archer)
+    assert archer.followers.include?(kohl)
+    kohl.unfollow(archer)
+    assert_not kohl.following?(archer)
+  end
+
   test "should be valid" do
   	assert @user.valid?
   end

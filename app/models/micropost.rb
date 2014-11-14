@@ -6,9 +6,19 @@ class Micropost < ActiveRecord::Base
   mount_uploader :picture, PictureUploader
   validate :picture_size
 
-  def picture_size
-  	if picture.size > 5.megabytes
-  		errors.add(:picture, "should be less than 5MB")
-  	end
+
+  def Micropost.from_users_followed_by(user)
+    following_ids = "SELECT followed_id FROM relationships
+                     WHERE  follower_id = :user_id"
+    where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: user)
   end
+
+  private
+
+   def picture_size
+    if picture.size > 5.megabytes
+      errors.add(:picture, "should be less than 5MB")
+    end
+  end
+
 end
