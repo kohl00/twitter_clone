@@ -22,4 +22,9 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail to: user.email, subject: "Password reset"
   end
+
+  def admin_auth(user)
+    @user = user
+    mail to: user.email, subject: "Admin Authorization"
+  end
 end

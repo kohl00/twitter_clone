@@ -18,10 +18,17 @@ class User < ActiveRecord::Base
  	has_secure_password
  	validates :password, length: {minimum: 6}, allow_blank: true
 
- 	def User.digest(string) #originally used for testing in fixtures.Also used in cookie token
+ 	def User.digest(string)
  		cost= ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost 
  		BCrypt::Password.create(string, cost: cost)
  	end
+
+ 	def authenticated?(attribute,token)
+ 		digest = send("#{attribute}_digest")
+ 		return false if digest.nil?
+ 		BCrypt::Password.new(digest).is_password?(token)
+ 	end
+
 
  	def User.new_token #remember token
  		SecureRandom.urlsafe_base64
@@ -30,12 +37,6 @@ class User < ActiveRecord::Base
  	def remember #saving to database, creates remember_digest
  		self.remember_token = User.new_token
  		update_attribute(:remember_digest, User.digest(remember_token))
- 	end
-
- 	def authenticated?(attribute,token)
- 		digest = send("#{attribute}_digest")
- 		return false if digest.nil?
- 		BCrypt::Password.new(digest).is_password?(token)
  	end
 
  	def forget
